@@ -21,8 +21,7 @@ export function Hero() {
     if (reduced) return;
     const root = rootRef.current;
     const content = contentRef.current;
-    const portrait = portraitRef.current;
-    if (!root || !content || !portrait) return;
+    if (!root || !content) return;
 
     const ctx = gsap.context(() => {
       gsap.to(content, {
@@ -41,6 +40,7 @@ export function Hero() {
 
     return () => ctx.revert();
   }, [reduced]);
+
 
   // Title reveal on load
   useEffect(() => {
