@@ -6,12 +6,12 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PORTRAIT_URL = '/portrait.jpg';
+
 
 export function Hero() {
   const rootRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const portraitRef = useRef<HTMLDivElement>(null);
+
   const reduced = useReducedMotion();
 
   const nameWords = profile.name.split(' ');
@@ -37,17 +37,6 @@ export function Hero() {
           scrub: 0.8,
         },
       });
-      gsap.to(portrait, {
-        y: -40,
-        opacity: 0.2,
-        ease: 'power3.inOut',
-        scrollTrigger: {
-          trigger: root,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.8,
-        },
-      });
     }, root);
 
     return () => ctx.revert();
@@ -65,15 +54,6 @@ export function Hero() {
       stagger: 0.06,
       delay: 0.15,
     });
-    // Portrait fade-in
-    if (portraitRef.current) {
-      gsap.to(portraitRef.current, {
-        opacity: 1,
-        duration: 1.2,
-        ease: 'power3.out',
-        delay: 0.6,
-      });
-    }
   }, [reduced]);
 
   return (
@@ -139,41 +119,7 @@ export function Hero() {
         </p>
       </div>
 
-      {/* Portrait — B&W treated */}
-      <div
-        ref={portraitRef}
-        className="absolute"
-        style={{
-          right: 'var(--gutter)',
-          bottom: '6rem',
-          width: 'clamp(180px, 22vw, 300px)',
-          height: 'clamp(240px, 30vw, 400px)',
-          overflow: 'hidden',
-          borderRadius: '3px',
-          opacity: 0,
-          boxShadow: '0 20px 60px -10px rgba(28,27,24,0.18)',
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url(${PORTRAIT_URL})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center top',
-            filter: 'grayscale(1) contrast(1.08) brightness(0.96)',
-          }}
-        />
-        {/* Subtle warm olive tint overlay */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(180deg, rgba(247,245,241,0.05) 0%, rgba(91,107,74,0.15) 100%)',
-            mixBlendMode: 'multiply',
-          }}
-        />
-      </div>
+
 
       {/* Scroll cue */}
       <div
